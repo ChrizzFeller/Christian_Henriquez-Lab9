@@ -16,10 +16,25 @@ class admin : public usuario {
 	public:
 		admin();
 		admin(string, string, string, int);
+		~admin();
 		string getCargo();
 		int getNumeroS();
 		void setCargo(string);
 		void setNumeroS(int);
-}
 
-#endif;
+		friend ostream& operator <<(ostream &escribir,admin &r){
+			string resp;
+			stringstream text;
+			text << r.getNombre();
+			text << ",";
+			text << r.getContra();
+			text << ",";
+			text << r.getCargo();
+			text << ",";
+			text << r.getNumeroS();
+            resp = text.str();
+            return escribir<<text;
+        }
+};
+
+#endif

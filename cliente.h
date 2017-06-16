@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 #include "usuario.h"
 
 using namespace std;
@@ -15,8 +16,21 @@ class cliente : public usuario {
 	public:
 		cliente();
 		cliente(string, string, string);
+		~cliente();
 		string getTipoM();
 		void setTipoM(string);
-}
 
-#endif;
+		friend ostream& operator <<(ostream &escribir,cliente &r){
+			string resp;
+			stringstream text;
+			text << r.getNombre();
+			text << ",";
+			text << r.getContra();
+			text << ",";
+			text << r.getTipoM();
+            resp = text.str();
+            return escribir<<text;
+        }
+};
+
+#endif

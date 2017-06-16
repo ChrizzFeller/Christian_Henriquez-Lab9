@@ -9,6 +9,9 @@ cliente::cliente(string pNombre, string pContra, string pTipo) {
 	tipoM = pTipo;
 }
 
+cliente::~cliente() {
+}
+
 string cliente::getTipoM() {
 	return tipoM;
 }

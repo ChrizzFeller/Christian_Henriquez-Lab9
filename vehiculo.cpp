@@ -9,6 +9,10 @@ vehiculo::vehiculo(string pPlaca, string pMarca, string pModelo, string pAno, do
 	modelo = pModelo;
 	ano = pAno;
 	precio = pPrecio;
+	alquilado = false;
+}
+
+vehiculo::~vehiculo() {
 }
 
 string vehiculo::getPlaca() {
@@ -31,6 +35,10 @@ double vehiculo::getPrecio() {
 	return precio;
 }
 
+bool vehiculo::getAlquilado() {
+	return alquilado;
+}
+
 void vehiculo::setPlaca(string pPlaca){
 	placa = pPlaca;
 }
@@ -49,4 +57,8 @@ void vehiculo::setAno(string pAno){
 
 void vehiculo::setPrecio(double pPrecio) {
 	precio = pPrecio;
+}
+
+void vehiculo::setAlquilado(bool pAlquilado) {
+	alquilado = pAlquilado;
 }

@@ -10,6 +10,9 @@ admin::admin(string pNombre, string pContra, string pCargo, int pNumero) {
 	numeroS = pNumero;
 }
 
+admin::~admin(){
+}
+
 string admin::getCargo() {
 	return cargo;
 }
@@ -22,6 +25,6 @@ void admin::setCargo(string pCargo) {
 	cargo = pCargo;
 }
 
-void admin::setContra(int pNumero) {
+void admin::setNumeroS(int pNumero) {
 	numeroS = pNumero;
 }

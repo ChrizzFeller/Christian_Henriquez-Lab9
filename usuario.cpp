@@ -8,6 +8,9 @@ usuario::usuario(string pNombre, string pContra) {
 	contra = pContra;
 }
 
+usuario::~usuario(){
+}
+
 string usuario::getContra() {
 	return contra;
 }

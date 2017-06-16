@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -15,10 +16,11 @@ class usuario {
 	public:
 		usuario();
 		usuario(string, string);
-		string getUsuario();
+		virtual ~usuario();
+		string getNombre();
 		string getContra();
-		void setUsuario(string);
+		void setNombre(string);
 		void setContra(string);
-}
+};
 
-#endif;
+#endif
