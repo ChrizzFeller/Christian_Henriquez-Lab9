@@ -38,18 +38,12 @@ class vehiculo {
 			string resp;
 			stringstream text;
 			text << r.getPlaca();
-			text << ",";
 			text << r.getMarca();
-			text << ",";
 			text << r.getModelo();
-			text << ",";
 			text << r.getAno();
-			text << ",";
 			text << r.getPrecio();
-			text << ",";
-			text << r.getAlquilado();
             resp = text.str();
-            return escribir<<text;
+            return escribir<<resp;
         }
 };
 

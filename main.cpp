@@ -13,6 +13,9 @@
 using namespace std;
 
 string randomS();
+vector<cliente*> cargarTXT0(vector<cliente*>);
+vector<admin*> cargarTXT1(vector<admin*>);
+vector<vehiculo*> cargarTXT2(vector<vehiculo*>);
 
 int main() {
 	ofstream clientes;
@@ -25,18 +28,30 @@ int main() {
 	vector<cliente*> lista0;
 	vector<admin*> lista1;
 	vector<vehiculo*> lista2;
+	lista0 = cargarTXT0(lista0);
+	lista1 = cargarTXT1(lista1);
+	lista2 = cargarTXT2(lista2);
+	lista1.push_back(new admin("Chrizz", "123", "Jefe", 94565588));
+
 	bool seguir = true;
 	while (seguir == true) {
 		bool user = false, pass = false, enter = false, enter2 = false;
 		int userM;
 		cout << "Como desea entrar?" << endl;
-		cout << "1) Admin" << endl;
-		cout << "2) Cliente " << endl;
+		cout << "1) Cliente" << endl;
+		cout << "2) Administrador " << endl;
+		cout << "3) Salir" << endl;
 		int resp9;
 		cin >> resp9;
-		while (resp9 < 1 || resp9 > 2) {
+		while (resp9 < 1 || resp9 > 3) {
 			cout << "Opcion invalida, ingrese su opcion de nuevo." << endl;
 			cin >> resp9;
+		}
+		if (resp9 == 3)
+		{
+			enter = true;
+			enter2 = false;
+			seguir = false;
 		}
 		while (enter == false) {
 			cout << "Ingrese el nombre de usuario: " << endl;
@@ -84,7 +99,7 @@ int main() {
 						enter = false;
 					}
 				}
-			} else {
+			} else if(resp9 == 2) {
 				for (int i = 0; i < lista1.size(); ++i)
 				{
 					if (lista1.at(i) -> getNombre() == nombre1)
@@ -109,7 +124,7 @@ int main() {
 				}
 				if (enter == false)
 				{
-					cout << "Desea salir?" << endl;
+					cout << "Usuario o Contraseña invalida, desea salir o continuar?" << endl;
 					cout << "1) Salir" << endl;
 					cout << "2) Seguir tratando" << endl;
 					int resp0;
@@ -122,6 +137,10 @@ int main() {
 						enter = false;
 					}
 				}
+			} else {
+				enter = true;
+				enter2 = false;
+				seguir = false;
 			}
 		}
 
@@ -134,8 +153,8 @@ int main() {
 					cliente* temp1 = dynamic_cast<cliente*>(lista0.at(userM));
 					cout << "Que desea hacer?" << endl;
 					cout << "1) Listar autos" << endl;
-					cout << "2) Alquilar autos" << endl;
-					cout << "3) Guardar factura" << endl;
+					cout << "2) Alquilar autos y guardar factura" << endl;
+					cout << "3) Salir" << endl;
 					int resp2;
 					cin >> resp2;
 					while (resp2 < 1 || resp2 > 3) {
@@ -160,8 +179,7 @@ int main() {
 							}
 							cout << endl;
 						}
-					} else if (resp2 == 2)
-					{
+					} else if (resp2 == 2) {
 						cout << "Cual vehiculo desea alquilar?" << endl;
 						for (int i = 0; i < lista2.size(); ++i)
 						{
@@ -198,9 +216,24 @@ int main() {
 							}
 							bool pAlquilado = true;
 							lista2.at(resp1) -> setAlquilado(pAlquilado);
+
+							stringstream nomS;
+							string nom;
+							nomS << lista0.at(userM) -> getNombre();
+							nomS << ".txt";
+							nom = nomS.str();
+							string nombreC = lista0.at(userM) -> getNombre();
+							char *cstr = &nom[0u];
+							ofstream factura;
+							factura.open(cstr,ios::app);
+							factura << nombreC;
+							factura << endl;
+							vehiculo* temp4 = lista2.at(resp1);
+							factura << *temp4;
+							factura.close();
 						}
 					} else {
-
+						seguir2 = false;
 					}
 				} else if (resp9 == 2)
 				{
@@ -375,10 +408,8 @@ int main() {
 							cout << "Usuario agregado exitosamente!" << endl;
 						}
 					} else {
-
+						seguir2 = false;
 					}
-				} else {
-					seguir2 = false;
 				}
 			}
 		}
@@ -501,4 +532,70 @@ string randomS() {
 	}
 	random2 = random1.str();
 	return random2;
+}
+
+vector<cliente*> cargarTXT0(vector<cliente*> clientes){
+	ifstream archivo("clientes.txt");
+
+	while(!archivo.eof()){
+
+		string nombre;
+		string contra;
+		string membresia;
+
+		archivo >> nombre;
+		archivo >> contra;
+		archivo >> membresia;
+
+		cliente* clienteN = new cliente(nombre,contra,membresia);
+		clientes.push_back(clienteN);
+	}	
+
+	return clientes;		
+}
+
+vector<admin*> cargarTXT1(vector<admin*> admins){
+	ifstream archivo("admins.txt");
+
+	while(!archivo.eof()){
+
+		string nombre;
+		string contra;
+		string cargo;
+		int numeroS;
+
+		archivo >> nombre;
+		archivo >> contra;
+		archivo >> cargo;
+		archivo >> numeroS;
+
+		admin* adminN = new admin(nombre,contra,cargo,numeroS);
+		admins.push_back(adminN);
+	}	
+
+	return admins;		
+}
+
+vector<vehiculo*> cargarTXT2(vector<vehiculo*> carrosS){
+	ifstream archivo("carros.txt");
+
+	while(!archivo.eof()){
+
+		string placa;
+		string marca;
+		string modelo;
+		string ano;
+		double precio;
+
+		archivo >> placa;
+		archivo >> marca;
+		archivo >> modelo;
+		archivo >> ano;
+		archivo >> precio;
+
+		vehiculo* carroN = new vehiculo(placa, marca, modelo, ano, precio);
+		carrosS.push_back(carroN);
+	}	
+
+	return carrosS;		
 }

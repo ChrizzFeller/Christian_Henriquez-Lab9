@@ -26,14 +26,11 @@ class admin : public usuario {
 			string resp;
 			stringstream text;
 			text << r.getNombre();
-			text << ",";
 			text << r.getContra();
-			text << ",";
 			text << r.getCargo();
-			text << ",";
 			text << r.getNumeroS();
             resp = text.str();
-            return escribir<<text;
+            return escribir<<resp;
         }
 };
 

@@ -24,12 +24,10 @@ class cliente : public usuario {
 			string resp;
 			stringstream text;
 			text << r.getNombre();
-			text << ",";
 			text << r.getContra();
-			text << ",";
 			text << r.getTipoM();
             resp = text.str();
-            return escribir<<text;
+            return escribir<<resp;
         }
 };
 
